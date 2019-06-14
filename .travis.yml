@@ -1,0 +1,31 @@
+language: python
+cache: pip
+dist: xenial
+matrix:
+  include:
+    - os: linux
+      python: "3.7"
+    - os: osx
+      language: generic
+addons:
+  apt:
+    packages:
+      - mecab
+      - libmecab-dev
+      - mecab-ipadic-utf8
+      - swig
+  homebrew:
+    packages:
+      - python3
+      - mecab
+      - mecab-ipadic
+      - swig
+    #update: true
+install:
+  - make setup
+script:
+  - make lint
+notifications:
+  email:
+    on_success: change
+    on_failure: change

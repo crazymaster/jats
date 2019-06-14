@@ -1,0 +1,10 @@
+# local package
+# -e .
+
+# external requirements
+mecab-python3
+pandas
+
+# development specific requirements
+flake8
+mypy
