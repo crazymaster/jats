@@ -27,12 +27,9 @@ class Vocab:
 
         try:
             self.stdev = st.stdev(self.level_list)
-        except st.StatisticsError:
-            self.stdev = math.nan
-
-        try:
             self.variance = st.variance(self.level_list)
         except st.StatisticsError:
+            self.stdev = math.nan
             self.variance = math.nan
 
     def load_vocab(self, vocab_path: str = abs_path('../data/goi/goi.csv')) -> pd.DataFrame:
