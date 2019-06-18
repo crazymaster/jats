@@ -13,6 +13,7 @@ from jatr.util import abs_path
 class Vocab:
     def __init__(self, sentence: str):
         self.sentence = sentence
+        self.len = len(self.sentence)
         self.vocab = self.load_vocab()
         self.words = self.split_into_words(self.sentence)
         self.level_list = self.calc_vocab_level(self.words)

@@ -1,18 +1,19 @@
 """日本語テキスト難易度推定"""
 
-import jatr.vocab as jv
 import fileinput
 import re
 
+import jatr.vocab as jv
+
 
 def main():
-    text = re.split('[。！？!?]', ''.join([line.rstrip() for line in fileinput.input()]))
-    print(text)
+    text = ''.join([line.rstrip() for line in fileinput.input()])
+    sentences = re.findall(r'[^。]+(?:[。]|$)', text)
 
-    for sentence in text:
+    for sentence in sentences:
         v = jv.Vocab(sentence)
-        # v = jv.Vocab('李さんは毎日お酒をのんでいます。')
         print(v.sentence)
+        print('文長:', v.len)
         print('語彙の難易度')
         print('平均値:', v.mean)
         print('最大値:', v.max)
