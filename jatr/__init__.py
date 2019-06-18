@@ -2,18 +2,17 @@
 
 import jatr.vocab as jv
 import fileinput
-import functools
 import re
 
 
 def main():
-    texts = re.split('[。！？!?]', functools.reduce(str.rstrip, fileinput.input()))
-    # texts = ''.join([line.rstrip() for line in fileinput.input()]).split('。')
+    text = re.split('[。！？!?]', ''.join([line.rstrip() for line in fileinput.input()]))
+    print(text)
 
-    for text in texts:
-        v = jv.Vocab(text)
+    for sentence in text:
+        v = jv.Vocab(sentence)
         # v = jv.Vocab('李さんは毎日お酒をのんでいます。')
-        print(v.text)
+        print(v.sentence)
         print('語彙の難易度')
         print('平均値:', v.mean)
         print('最大値:', v.max)

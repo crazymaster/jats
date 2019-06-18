@@ -11,10 +11,10 @@ from jatr.util import abs_path
 
 
 class Vocab:
-    def __init__(self, text: str):
-        self.text = text
+    def __init__(self, sentence: str):
+        self.sentence = sentence
         self.vocab = self.load_vocab()
-        self.words = self.split_into_words(self.text)
+        self.words = self.split_into_words(self.sentence)
         self.level_list = self.calc_vocab_level(self.words)
         self.mean = st.mean(self.level_list)
         self.max = max(self.level_list)
@@ -38,10 +38,10 @@ class Vocab:
         edu_vocab['語彙の難易度'] = edu_vocab['語彙の難易度'].map(lambda s: s[0]).astype('int')
         return edu_vocab
 
-    def split_into_words(self, text: str) -> List[str]:
+    def split_into_words(self, sentence: str) -> List[str]:
         """分かち書きにしてリストで返す"""
         m = MeCab.Tagger("-Owakati")
-        return m.parse(text).split(" ")
+        return m.parse(sentence).split(" ")
 
     def calc_vocab_level(self, words: List[str]) -> List[int]:
         level_list: List[int] = []
