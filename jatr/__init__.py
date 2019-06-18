@@ -13,7 +13,7 @@ def main():
     print('平均値:', v.mean)
     print('最大値:', v.max)
     print('中央値:', v.median)
-    print('最瀕値:', v.mode)
+    print('最頻値:', v.mode)
     print('標準偏差:', v.stdev)
     print('分散:', v.variance)
 
