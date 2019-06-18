@@ -5,7 +5,7 @@ import fileinput
 
 
 def main():
-    text = ''.join([line for line in fileinput.input()])
+    text = ''.join(fileinput.input())
 
     v = jv.Vocab(text)
     # v = jv.Vocab('李さんは毎日お酒をのんでいます。')
