@@ -4,10 +4,9 @@ import statistics as st
 from typing import List
 
 import MeCab
-import math
 import pandas as pd
 
-from jatr.util import abs_path
+from jatr.util import abs_path, safety_stat
 
 
 class Vocab:
@@ -18,33 +17,16 @@ class Vocab:
         self.words = self.split_into_words(self.text)
         self.level_list = self.calc_vocab_level(self.words)
 
-        # TODO: 例外処理を関数化する
         try:
             self.max = max(self.level_list)
         except ValueError:
             self.max = 0
 
-        try:
-            self.mean = st.mean(self.level_list)
-        except st.StatisticsError:
-            self.mean = math.nan
-
-        try:
-            self.median = st.median(self.level_list)
-        except st.StatisticsError:
-            self.median = math.nan
-
-        try:
-            self.mode = st.mode(self.level_list)
-        except st.StatisticsError:
-            self.mode = math.nan
-
-        try:
-            self.stdev = st.stdev(self.level_list)
-            self.variance = st.variance(self.level_list)
-        except st.StatisticsError:
-            self.stdev = math.nan
-            self.variance = math.nan
+        self.mean = safety_stat(st.mean, self.level_list)
+        self.median = safety_stat(st.median, self.level_list)
+        self.mode = safety_stat(st.mode, self.level_list)
+        self.stdev = safety_stat(st.stdev, self.level_list)
+        self.variance = safety_stat(st.variance, self.level_list)
 
     def load_vocab(self, vocab_path: str = abs_path('../data/goi/goi.csv')) -> pd.DataFrame:
         """日本語教育語彙表を読込み、語彙の難易度の列を数値に変換する"""
