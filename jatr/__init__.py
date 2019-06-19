@@ -21,7 +21,3 @@ def main():
         v = jv.Vocab(sentence)
         print(sentence)
         v.show_metrics()
-
-
-if __name__ == '__main__':
-    main()
