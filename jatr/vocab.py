@@ -22,7 +22,7 @@ class Vocab:
         try:
             self.max = max(self.level_list)
         except ValueError:
-            self.max = math.nan
+            self.max = 0
 
         try:
             self.mean = st.mean(self.level_list)
