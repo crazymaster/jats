@@ -21,5 +21,17 @@ $ brew install mecab mecab-ipadic swig
 ## Usage
 
 ```bash
+$ echo 'お腹が空いた。' | python3 -m jatr
+```
+
+```bash
+$ python3 -m jatr < data/サンプルテキスト/中級前半.txt
+```
+
+```bash
+$ python3 -m jatr data/サンプルテキスト/上級後半.txt
+```
+
+```bash
 $ make help
 ```
