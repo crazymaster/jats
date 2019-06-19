@@ -8,6 +8,8 @@ import jatr.vocab as jv
 
 def main():
     text = ''.join([line.rstrip() for line in fileinput.input()])
+
+    # TODO: 文分割の改良を行う 例:「」への対応
     sentences = re.findall(r'[^。]+(?:[。]|$)', text)
 
     vt = jv.Vocab(text)

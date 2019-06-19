@@ -18,6 +18,7 @@ class Vocab:
         self.words = self.split_into_words(self.text)
         self.level_list = self.calc_vocab_level(self.words)
 
+        # TODO: 例外処理を関数化する
         try:
             self.max = max(self.level_list)
         except ValueError:
@@ -47,12 +48,14 @@ class Vocab:
 
     def load_vocab(self, vocab_path: str = abs_path('../data/goi/goi.csv')) -> pd.DataFrame:
         """日本語教育語彙表を読込み、語彙の難易度の列を数値に変換する"""
+        # TODO: 教科書コーパス語彙表(https://pj.ninjal.ac.jp/corpus_center/bccwj/freq-list.html)も使えるようにする
         edu_vocab = pd.read_csv(vocab_path, encoding='shift_jis')
         edu_vocab['語彙の難易度'] = edu_vocab['語彙の難易度'].map(lambda s: s[0]).astype('int')
         return edu_vocab
 
     def split_into_words(self, text: str) -> List[str]:
         """分かち書きにしてリストで返す"""
+        # TODO: ステミング(語形の変化を取り除く)を行う
         m = MeCab.Tagger("-Owakati")
         return m.parse(text).split(" ")
 
