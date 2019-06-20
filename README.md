@@ -18,6 +18,12 @@ $ sudo apt install mecab libmecab-dev mecab-ipadic-utf8 swig
 $ brew install mecab mecab-ipadic swig
 ```
 
+### Setup
+
+```bash
+$ make setup
+```
+
 ## Usage
 
 ```bash
