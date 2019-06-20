@@ -27,5 +27,10 @@ script:
   - make lint
 notifications:
   email:
-    on_success: change
+    on_success: never
     on_failure: change
+  webhooks:
+    urls:
+      - https://outlook.office.com/webhook/216e4f60-123d-4483-bb9a-0b31d0810cb2@c1a3ad8b-49cc-4a52-9ec7-533f7ff2b9a5/TravisCI/9cab754aa833470290957edb301af718/5195db10-93c4-4b8b-bca3-2da3a7c776bd
+    on_success: change
+    on_failure: always
