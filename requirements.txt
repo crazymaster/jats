@@ -8,3 +8,4 @@ pandas
 # development specific requirements
 flake8
 mypy
+jupyter
