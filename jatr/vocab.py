@@ -10,10 +10,12 @@ from jatr.util import abs_path, safety_stat
 
 
 class Vocab:
+    vocab = pd.DataFrame()
+
     def __init__(self, text: str):
         self.text = text
         self.len = len(self.text)
-        self.vocab = self.load_vocab()
+        self.load_vocab()
         self.words = self.split_into_words(self.text)
         self.level_list = self.calc_vocab_level(self.words)
 
@@ -29,12 +31,11 @@ class Vocab:
         self.variance = safety_stat(st.variance, self.level_list)
 
     @classmethod
-    def load_vocab(cls, vocab_path: str = abs_path('../data/goi/goi.csv')) -> pd.DataFrame:
+    def load_vocab(cls, vocab_path: str = abs_path('../data/goi/goi.csv')):
         """日本語教育語彙表を読込み、語彙の難易度の列を数値に変換する"""
         # TODO: 教科書コーパス語彙表(https://pj.ninjal.ac.jp/corpus_center/bccwj/freq-list.html)も使えるようにする
-        edu_vocab = pd.read_csv(vocab_path, encoding='shift_jis')
-        edu_vocab['語彙の難易度'] = edu_vocab['語彙の難易度'].map(lambda s: s[0]).astype('int')
-        return edu_vocab
+        cls.vocab = pd.read_csv(vocab_path, encoding='shift_jis')
+        cls.vocab['語彙の難易度'] = cls.vocab['語彙の難易度'].map(lambda s: s[0]).astype('int')
 
     @staticmethod
     def split_into_words(text: str) -> List[str]:
@@ -43,10 +44,11 @@ class Vocab:
         m = MeCab.Tagger("-Owakati")
         return m.parse(text).split(" ")
 
-    def calc_vocab_level(self, words: List[str]) -> List[int]:
+    @classmethod
+    def calc_vocab_level(cls, words: List[str]) -> List[int]:
         level_list: List[int] = []
         for word in words:
-            level_list += self.vocab[self.vocab['標準的な表記'] == word]['語彙の難易度'].to_list()
+            level_list += cls.vocab[cls.vocab['標準的な表記'] == word]['語彙の難易度'].to_list()
         return level_list
 
     def show_metrics(self):
