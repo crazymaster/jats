@@ -2,15 +2,16 @@
 
 import fileinput
 import re
+from typing import List
 
 import jatr.vocab as jv
 
 
 def main():
-    text = ''.join([line.strip() for line in fileinput.input()])
+    text: str = ''.join([line.strip() for line in fileinput.input()])
 
     # TODO: 文分割の改良を行う 例:「」への対応
-    sentences = re.findall(r'[^。]+(?:[。]|$)', text)
+    sentences: List[str] = re.findall(r'[^。]+(?:[。]|$)', text)
 
     vt = jv.Vocab(text)
     print('文章全体')
