@@ -14,7 +14,7 @@ class Vocab:
         self.text = text
         self.len = len(self.text)
         self.vocab = self.load_vocab()
-        self.words = self.split_into_words(self.text)
+        self.words = self.tokenize(self.text)
         self.level_list = self.calc_vocab_level(self.words)
 
         try:
@@ -39,9 +39,28 @@ class Vocab:
     @staticmethod
     def split_into_words(text: str) -> List[str]:
         """分かち書きにしてリストで返す"""
-        # TODO: ステミング(語形の変化を取り除く)を行う
-        m = MeCab.Tagger("-Owakati")
-        return m.parse(text).split(" ")
+        parser = MeCab.Tagger("-Owakati")
+        return parser.parse(text).split(" ")
+
+    @staticmethod
+    def tokenize(text: str) -> List[str]:
+        """形態素への分割とステミング(語形の変化を取り除く)を行う"""
+        parser = MeCab.Tagger()
+        result: str = parser.parse(text)
+        morph_list: List[str] = []
+        for m in result.splitlines():
+            if m == 'EOS':
+                continue  # break でも可
+
+            # タブで区切って、表層形と各種情報を得る
+            surface, features = m.split('\t')
+
+            feature_list = features.split(',')
+
+            # 原形または表層形をリストに追加する
+            morph_list.append(feature_list[6] if feature_list[6] != '*' else surface)
+
+        return morph_list
 
     def calc_vocab_level(self, words: List[str]) -> List[int]:
         level_list: List[int] = []
