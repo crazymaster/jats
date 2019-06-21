@@ -12,9 +12,10 @@ from jatr.util import abs_path, safety_stat
 class Vocab:
     def __init__(self, text: str):
         self.text = text
-        self.len = len(self.text)
+        self.n_chars = len(self.text)
         self.vocab = self.load_vocab()
         self.words = self.tokenize(self.text)
+        self.n_words = len(self.words)
         self.level_list = self.calc_vocab_level(self.words)
 
         try:
@@ -69,7 +70,8 @@ class Vocab:
         return level_list
 
     def show_metrics(self):
-        print('文字数:', self.len)
+        print('文字数:', self.n_chars)
+        print('単語数:', self.n_words)
         print('語彙の難易度')
         print('平均値:', self.mean)
         print('最大値:', self.max)
