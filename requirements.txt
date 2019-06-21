@@ -9,3 +9,6 @@ pandas
 flake8
 mypy
 jupyter
+jupyterthemes
+matplotlib
+RISE
