@@ -11,6 +11,7 @@ mypy
 jupyter
 matplotlib
 japanize-matplotlib
+seaborn
 RISE
 jupyter_contrib_nbextensions
 hide_code
