@@ -7,6 +7,13 @@ from typing import List
 import jatr.vocab as jv
 
 
+def load_text(txt_path: str):
+    with open(txt_path) as t:
+        text: str = ''.join([line.strip().replace('「', '').replace('」', '') for line in t])
+
+    return text
+
+
 def main():
     text: str = ''.join([line.strip().replace('「', '').replace('」', '') for line in fileinput.input()])
 

@@ -9,6 +9,8 @@ pandas
 flake8
 mypy
 jupyter
-jupyterthemes
 matplotlib
+japanize-matplotlib
 RISE
+jupyter_contrib_nbextensions
+hide_code
