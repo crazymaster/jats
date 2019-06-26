@@ -1,7 +1,7 @@
 """日本語教育語彙表（http://jhlee.sakura.ne.jp/JEV.html）による難易度推定"""
 
 import statistics as st
-from typing import List
+from typing import List, Tuple
 
 import MeCab
 import pandas as pd
@@ -16,7 +16,7 @@ class Vocab:
         self.vocab = self.load_vocab()
         self.words = self.tokenize(self.text)
         self.n_words = len(self.words)
-        self.level_list = self.calc_vocab_level(self.words)
+        self.level_list, self.matched_words = self.calc_vocab_level(self.words)
         self.n_matched_words = len(self.level_list)
 
         try:
@@ -64,13 +64,18 @@ class Vocab:
 
         return morph_list
 
-    def calc_vocab_level(self, words: List[str]) -> List[int]:
+    def calc_vocab_level(self, words: List[str]) -> Tuple[List[int], List[str]]:
         level_list: List[int] = []
+        matched_words: List[str] = []
         for word in words:
-            level_list += self.vocab[self.vocab['標準的な表記'] == word]['語彙の難易度'].to_list()
-        return level_list
+            matched_level = self.vocab[self.vocab['標準的な表記'] == word]['語彙の難易度'].to_list()
+            level_list += matched_level
+            if not matched_level == []:
+                matched_words.append(word)
+        return level_list, matched_words
 
     def show_metrics(self):
+        print('マッチした単語:', ', '.join(self.matched_words))
         print('文字数:', self.n_chars)
         print('単語数:', self.n_words)
         print('マッチした単語数:', self.n_matched_words)
