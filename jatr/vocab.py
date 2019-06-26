@@ -17,6 +17,7 @@ class Vocab:
         self.words = self.tokenize(self.text)
         self.n_words = len(self.words)
         self.level_list = self.calc_vocab_level(self.words)
+        self.n_matched_words = len(self.level_list)
 
         try:
             self.max = max(self.level_list)
@@ -72,6 +73,7 @@ class Vocab:
     def show_metrics(self):
         print('文字数:', self.n_chars)
         print('単語数:', self.n_words)
+        print('マッチした単語数:', self.n_matched_words)
         print('語彙の難易度')
         print('平均値:', self.mean)
         print('最大値:', self.max)
