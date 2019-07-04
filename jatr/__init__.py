@@ -23,8 +23,8 @@ def main():
     vt = jv.Vocab(text)
     print('文章全体')
     print('文数:', len(sentences))
-    print('1文あたりの文字数:', vt.n_chars / len(sentences))
-    print('1文あたりの単語数:', vt.n_words / len(sentences))
+    print('1文あたりの平均文字数:', vt.n_chars / len(sentences))
+    print('1文あたりの平均単語数:', vt.n_words / len(sentences))
     vt.show_metrics()
 
     for sentence in sentences:
