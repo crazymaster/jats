@@ -14,10 +14,11 @@ class Vocab:
         self.text = text
         self.n_chars = len(self.text)
         self.vocab = self.load_vocab()
-        self.words = self.tokenize(self.text)
+        self.morph_list = self.tokenize(self.text)
+        self.words = [word for word, _ in self.morph_list]
         self.n_words = len(self.words)
-        self.level_list, self.matched_words = self.calc_vocab_level(self.words)
-        self.n_matched_words = len(self.level_list)
+        self.level_list, self.matched_words = self.calc_vocab_level(self.morph_list)
+        self.n_matched_words = len(self.matched_words)
 
         try:
             self.max = max(self.level_list)
@@ -45,11 +46,11 @@ class Vocab:
         return parser.parse(text).split(" ")
 
     @staticmethod
-    def tokenize(text: str) -> List[str]:
+    def tokenize(text: str) -> List[Tuple[str, str]]:
         """形態素への分割とステミング(語形の変化を取り除く)を行う"""
         parser = MeCab.Tagger()
         result: str = parser.parse(text)
-        morph_list: List[str] = []
+        morph_list: List[Tuple[str, str]] = []
         for m in result.splitlines():
             if m == 'EOS':
                 continue  # break でも可
@@ -59,16 +60,17 @@ class Vocab:
 
             feature_list = features.split(',')
 
-            # 原形または表層形をリストに追加する
-            morph_list.append(feature_list[6] if feature_list[6] != '*' else surface)
+            # (原形または表層形, 品詞) のタプルをリストに追加する
+            morph_list.append((feature_list[6] if feature_list[6] != '*' else surface, feature_list[0]))
 
         return morph_list
 
-    def calc_vocab_level(self, words: List[str]) -> Tuple[List[int], List[str]]:
+    def calc_vocab_level(self, words: List[Tuple[str, str]]) -> Tuple[List[int], List[str]]:
         level_list: List[int] = []
         matched_words: List[str] = []
-        for word in words:
-            matched_level = self.vocab[self.vocab['標準的な表記'] == word]['語彙の難易度'].to_list()
+        for word, pos in words:
+            matched_level = self.vocab[(self.vocab['標準的な表記'] == word) &
+                                       (self.vocab['品詞2(詳細)'].str.contains(pos))]['語彙の難易度'].to_list()
             level_list += matched_level
             if not matched_level == []:
                 matched_words.append(word)
