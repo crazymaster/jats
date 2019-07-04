@@ -70,7 +70,7 @@ class Vocab:
         matched_words: List[str] = []
         for word, pos in words:
             matched_level = self.vocab[(self.vocab['標準的な表記'] == word) &
-                                       (self.vocab['品詞2(詳細)'].str.contains(pos))]['語彙の難易度'].to_list()
+                                       self.vocab['品詞2(詳細)'].str.contains(pos)]['語彙の難易度'].to_list()
             level_list += matched_level
             if not matched_level == []:
                 matched_words.append(word)
