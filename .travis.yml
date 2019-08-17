@@ -20,7 +20,7 @@ addons:
       - mecab
       - mecab-unidic
       - swig
-    #update: true
+    update: true
 install:
   - make setup
 script:
