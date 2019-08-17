@@ -25,6 +25,7 @@ install:
   - make setup
 script:
   - make lint
+  - make test
 notifications:
   email:
     on_success: never

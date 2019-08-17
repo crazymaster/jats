@@ -41,7 +41,10 @@ class Vocab:
 
     @staticmethod
     def split_into_words(text: str) -> List[str]:
-        """分かち書きにしてリストで返す"""
+        """分かち書きにしてリストで返す
+        >>> Vocab.split_into_words('物理学は、自然科学の一分野である。')
+        ['物理', '学', 'は', '、', '自然', '科学', 'の', '一', '分野', 'で', 'ある', '。', '\\n']
+        """
         parser = MeCab.Tagger("-Owakati")
         return parser.parse(text).split(" ")
 
@@ -49,7 +52,10 @@ class Vocab:
     def tokenize(text: str) -> List[Tuple[str, str]]:
         """形態素への分割とステミング(語形の変化を取り除く)を行う
         日本語教育語彙表はUniDicに基づいているので、UniDicを使う
+        >>> Vocab.tokenize('物理学は、自然科学の一分野である。')
+        [('物理', '名詞'), ('学', '接尾辞'), ('は', '助詞'), ('、', '補助記号'), ('自然', '名詞'), ('科学', '名詞'), ('の', '助詞'), ('一', '名詞'), ('分野', '名詞'), ('だ', '助動詞'), ('有る', '動詞'), ('。', '補助記号')]
         """
+
         unidic_path = '/var/lib/mecab/dic/unidic'
         parser = MeCab.Tagger("-d " + unidic_path)
         result: str = parser.parse(text)
@@ -70,6 +76,11 @@ class Vocab:
         return morph_list
 
     def calc_vocab_level(self, words: List[Tuple[str, str]]) -> Tuple[List[int], List[str]]:
+        """
+        >>> v = Vocab('')
+        >>> v.calc_vocab_level([('物理', '名詞'), ('学', '接尾辞'), ('は', '助詞'), ('自然', '名詞'), ('科学', '名詞'), ('分野', '名詞')])
+        ([4, 3, 4, 3, 3, 3, 4], ['物理', '学', '自然', '科学', '分野'])
+        """
         level_list: List[int] = []
         matched_words: List[str] = []
         for word, pos in words:

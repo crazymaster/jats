@@ -1,4 +1,4 @@
-.PHONY: all clean setup lint help
+.PHONY: all clean setup lint test help
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -26,6 +26,9 @@ lint:
 	python3 -m flake8 jatr
 	python3 -m mypy jatr
 
+## Run tests
+test:
+	python3 -m doctest jatr/vocab.py
 
 #################################################################################
 # PROJECT RULES                                                                 #
