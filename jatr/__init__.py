@@ -20,14 +20,14 @@ def main():
     # TODO: 文分割の改良を行う 例: !?への対応
     sentences: List[str] = re.findall(r'[^。]+(?:[。]|$)', text)
 
+    for sentence in sentences:
+        v = jv.Vocab(sentence)
+        print(sentence)
+        v.show_metrics()
+
     vt = jv.Vocab(text)
     print('文章全体')
     print('文数:', len(sentences))
     print('1文あたりの平均文字数:', vt.n_chars / len(sentences))
     print('1文あたりの平均単語数:', vt.n_words / len(sentences))
     vt.show_metrics()
-
-    for sentence in sentences:
-        v = jv.Vocab(sentence)
-        print(sentence)
-        v.show_metrics()
