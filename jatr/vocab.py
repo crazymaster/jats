@@ -76,11 +76,6 @@ class Vocab:
         return morph_list
 
     def calc_vocab_level(self, words: List[Tuple[str, str]]) -> Tuple[List[int], List[str]]:
-        """
-        >>> v = Vocab('')
-        >>> v.calc_vocab_level([('物理', '名詞'), ('学', '接尾辞'), ('は', '助詞'), ('自然', '名詞'), ('科学', '名詞'), ('分野', '名詞')])
-        ([4, 3, 4, 3, 3, 3, 4], ['物理', '学', '自然', '科学', '分野'])
-        """
         level_list: List[int] = []
         matched_words: List[str] = []
         for word, pos in words:
