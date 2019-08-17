@@ -52,8 +52,6 @@ class Vocab:
     def tokenize(text: str) -> List[Tuple[str, str]]:
         """形態素への分割とステミング(語形の変化を取り除く)を行う
         日本語教育語彙表はUniDicに基づいているので、UniDicを使う
-        >>> Vocab.tokenize('物理学は、自然科学の一分野である。') # noqa: E501
-        [('物理', '名詞'), ('学', '接尾辞'), ('は', '助詞'), ('、', '補助記号'), ('自然', '名詞'), ('科学', '名詞'), ('の', '助詞'), ('一', '名詞'), ('分野', '名詞'), ('だ', '助動詞'), ('有る', '動詞'), ('。', '補助記号')]
         """
         unidic_path = '/var/lib/mecab/dic/unidic'
         parser = MeCab.Tagger("-d " + unidic_path)
