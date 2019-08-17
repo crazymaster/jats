@@ -47,8 +47,11 @@ class Vocab:
 
     @staticmethod
     def tokenize(text: str) -> List[Tuple[str, str]]:
-        """形態素への分割とステミング(語形の変化を取り除く)を行う"""
-        parser = MeCab.Tagger()
+        """形態素への分割とステミング(語形の変化を取り除く)を行う
+        日本語教育語彙表はUniDicに基づいているので、UniDicを使う
+        """
+        unidic_path = '/var/lib/mecab/dic/unidic'
+        parser = MeCab.Tagger("-d " + unidic_path)
         result: str = parser.parse(text)
         morph_list: List[Tuple[str, str]] = []
         for m in result.splitlines():
@@ -61,7 +64,8 @@ class Vocab:
             feature_list = features.split(',')
 
             # (原形または表層形, 品詞) のタプルをリストに追加する
-            morph_list.append((feature_list[6] if feature_list[6] != '*' else surface, feature_list[0]))
+            # ipadicとunidicで辞書のフィールドが違うので注意
+            morph_list.append((feature_list[7] if feature_list[7] != '*' else surface, feature_list[0]))
 
         return morph_list
 
@@ -70,7 +74,7 @@ class Vocab:
         matched_words: List[str] = []
         for word, pos in words:
             matched_level = self.vocab[(self.vocab['標準的な表記'] == word) &
-                                       self.vocab['品詞2(詳細)'].str.contains(pos)]['語彙の難易度'].to_list()
+                                       self.vocab['品詞1'].str.contains(pos)]['語彙の難易度'].to_list()
             level_list += matched_level
             if not matched_level == []:
                 matched_words.append(word)

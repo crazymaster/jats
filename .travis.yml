@@ -1,6 +1,6 @@
 language: python
 cache: pip
-dist: xenial
+dist: bionic
 matrix:
   include:
     - os: linux
@@ -12,13 +12,13 @@ addons:
     packages:
       - mecab
       - libmecab-dev
-      - mecab-ipadic-utf8
+      - unidic-mecab
       - swig
   homebrew:
     packages:
       - python3
       - mecab
-      - mecab-ipadic
+      - mecab-unidic
       - swig
     #update: true
 install:

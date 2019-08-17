@@ -9,13 +9,13 @@ Japanese Text Simplification
 ### Ubuntu
 
 ```bash
-$ sudo apt install mecab libmecab-dev mecab-ipadic-utf8 swig
+$ sudo apt install mecab libmecab-dev unidic-mecab swig
 ```
 
 ### macOS
 
 ```bash
-$ brew install mecab mecab-ipadic swig
+$ brew install mecab mecab-unidic swig
 ```
 
 ### Setup
