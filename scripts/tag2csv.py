@@ -1,8 +1,10 @@
+from typing import Dict, List, Any
+
 import pandas as pd
 from mojimoji import zen_to_han
 
 path = './data/毎日新聞コーパス/mai2018-utf8.txt'
-data = []
+data: List[Dict[str, Any]] = []
 
 with open(path) as f:
     row = dict()
