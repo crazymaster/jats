@@ -4,6 +4,7 @@
 # external requirements
 mecab-python3
 pandas
+mojimoji
 
 # development specific requirements
 flake8
