@@ -19,7 +19,7 @@ clean:
 
 ## Install Python Dependencies
 setup:
-	pip3 install -r requirements.txt
+	pip3 install -r requirements.txt --upgrade
 
 ## Lint using flake8 and mypy
 lint:
