@@ -5,6 +5,7 @@
 mecab-python3
 pandas
 mojimoji
+gensim
 
 # development specific requirements
 flake8
