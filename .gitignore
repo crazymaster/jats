@@ -175,6 +175,8 @@ fabric.properties
 # Project files
 .idea
 data/*
+models/*
+results/*
 
 # For empty directory
 !.gitkeep
