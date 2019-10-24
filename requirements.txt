@@ -4,6 +4,8 @@
 # external requirements
 mecab-python3
 pandas
+numexpr
+bottleneck
 mojimoji
 gensim
 
