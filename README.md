@@ -9,7 +9,7 @@ Japanese Text Simplification
 ### Ubuntu
 
 ```bash
-$ sudo apt install mecab libmecab-dev unidic-mecab swig libopenblas-base
+$ sudo apt install mecab libmecab-dev unidic-mecab swig
 ```
 
 ### macOS
