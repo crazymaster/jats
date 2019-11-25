@@ -10,6 +10,7 @@ mojimoji
 gensim
 scikit-learn
 joblib
+textdistance[extras]
 
 # development specific requirements
 flake8
