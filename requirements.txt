@@ -8,6 +8,8 @@ numexpr
 bottleneck
 mojimoji
 gensim
+scikit-learn
+joblib
 
 # development specific requirements
 flake8
