@@ -30,6 +30,12 @@ lint:
 test:
 	python3 -m doctest jatr/vocab.py
 
+## Convert character encoding and format
+conv:
+	nkf -w -Lu data/毎日新聞コーパス/mai2018.txt > data/毎日新聞コーパス/mai2018-utf8.txt
+	nkf -w -Lu data/毎日新聞コーパス/maisho2018.csv > data/毎日新聞コーパス/maisho2018-utf8.csv
+	python3 scripts/tag2csv.py
+
 #################################################################################
 # PROJECT RULES                                                                 #
 #################################################################################

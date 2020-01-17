@@ -41,3 +41,7 @@ $ python3 -m jatr data/サンプルテキスト/上級後半.txt
 ```bash
 $ make help
 ```
+
+## Note
+
+語彙表やコーパスは `data` ディレクトリ以下に配置
