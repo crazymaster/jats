@@ -1,6 +1,6 @@
 # jats [![Build Status](https://travis-ci.org/crazymaster/jats.svg?branch=master)](https://travis-ci.org/crazymaster/jats)
 
-Japanese Text Simplification
+Build Parallel Corpus for Japanese Text Simplification
 
 ## Requirements
 
